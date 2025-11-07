@@ -1,4 +1,3 @@
-using Oracle.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using AutoTTU.Connection;
 using AutoTTU.Repository;
@@ -79,14 +78,14 @@ builder.Services.AddVersionedApiExplorer(options =>
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
     // Em ambiente de testes, usa banco InMemory (fake)
-    // Em produção, usa Oracle
+    // Em produção, usa SQL Server
     if (builder.Environment.IsEnvironment("Testing"))
     {
         options.UseInMemoryDatabase($"TestDb_{System.Guid.NewGuid()}");
     }
     else
     {
-        options.UseOracle(builder.Configuration.GetConnectionString("DefaultConnection"));
+        options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
     }
 });
 
@@ -108,7 +107,7 @@ builder.Services.AddHealthChecks()
     .AddDbContextCheck<AppDbContext>(
         name: "database",
         failureStatus: Microsoft.Extensions.Diagnostics.HealthChecks.HealthStatus.Unhealthy,
-        tags: new[] { "db", "sql", "oracle" });
+        tags: new[] { "db", "sql", "sqlserver" });
 
 // CORS
 builder.Services.AddCors(options =>

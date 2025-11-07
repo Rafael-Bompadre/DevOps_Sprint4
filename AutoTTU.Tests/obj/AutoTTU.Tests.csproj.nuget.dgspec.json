@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\dudab\\source\\repos\\AutoTTU\\AutoTTU.Tests\\AutoTTU.Tests.csproj": {}
+    "D:\\sp4\\AutoTTU.Tests\\AutoTTU.Tests.csproj": {}
   },
   "projects": {
-    "C:\\Users\\dudab\\source\\repos\\AutoTTU\\AutoTTU.Tests\\AutoTTU.Tests.csproj": {
+    "D:\\sp4\\AutoTTU.Tests\\AutoTTU.Tests.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\dudab\\source\\repos\\AutoTTU\\AutoTTU.Tests\\AutoTTU.Tests.csproj",
+        "projectUniqueName": "D:\\sp4\\AutoTTU.Tests\\AutoTTU.Tests.csproj",
         "projectName": "AutoTTU.Tests",
-        "projectPath": "C:\\Users\\dudab\\source\\repos\\AutoTTU\\AutoTTU.Tests\\AutoTTU.Tests.csproj",
-        "packagesPath": "C:\\Users\\dudab\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\dudab\\source\\repos\\AutoTTU\\AutoTTU.Tests\\obj\\",
+        "projectPath": "D:\\sp4\\AutoTTU.Tests\\AutoTTU.Tests.csproj",
+        "packagesPath": "C:\\Users\\usuario\\.nuget\\packages\\",
+        "outputPath": "D:\\sp4\\AutoTTU.Tests\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\dudab\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\usuario\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -26,15 +26,14 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\dudab\\source\\repos\\AutoTTU\\AutoTTU\\AutoTTU.csproj": {
-                "projectPath": "C:\\Users\\dudab\\source\\repos\\AutoTTU\\AutoTTU\\AutoTTU.csproj"
+              "D:\\sp4\\AutoTTU\\AutoTTU.csproj": {
+                "projectPath": "D:\\sp4\\AutoTTU\\AutoTTU.csproj"
               }
             }
           }
@@ -66,6 +65,10 @@
             "Microsoft.EntityFrameworkCore.InMemory": {
               "target": "Package",
               "version": "[9.0.4, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[8.0.21, )"
             },
             "Microsoft.NET.Test.Sdk": {
               "target": "Package",
@@ -104,24 +107,24 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.200/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.201/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\dudab\\source\\repos\\AutoTTU\\AutoTTU\\AutoTTU.csproj": {
+    "D:\\sp4\\AutoTTU\\AutoTTU.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\dudab\\source\\repos\\AutoTTU\\AutoTTU\\AutoTTU.csproj",
+        "projectUniqueName": "D:\\sp4\\AutoTTU\\AutoTTU.csproj",
         "projectName": "AutoTTU",
-        "projectPath": "C:\\Users\\dudab\\source\\repos\\AutoTTU\\AutoTTU\\AutoTTU.csproj",
-        "packagesPath": "C:\\Users\\dudab\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\dudab\\source\\repos\\AutoTTU\\AutoTTU\\obj\\",
+        "projectPath": "D:\\sp4\\AutoTTU\\AutoTTU.csproj",
+        "packagesPath": "C:\\Users\\usuario\\.nuget\\packages\\",
+        "outputPath": "D:\\sp4\\AutoTTU\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\dudab\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\usuario\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -130,7 +133,6 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -175,6 +177,10 @@
               "target": "Package",
               "version": "[9.0.4, )"
             },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[8.0.21, )"
+            },
             "Microsoft.EntityFrameworkCore.Tools": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
@@ -192,10 +198,6 @@
             "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
               "target": "Package",
               "version": "[8.0.7, )"
-            },
-            "Oracle.EntityFrameworkCore": {
-              "target": "Package",
-              "version": "[9.23.80, )"
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
@@ -221,7 +223,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.200/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.201/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
