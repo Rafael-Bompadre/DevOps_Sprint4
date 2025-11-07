@@ -330,18 +330,6 @@
             Número de telefone de contato do usuário
             </summary>
         </member>
-        <member name="T:AutoTTU.Migrations.InitialCreate">
-            <inheritdoc />
-        </member>
-        <member name="M:AutoTTU.Migrations.InitialCreate.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
-            <inheritdoc />
-        </member>
-        <member name="M:AutoTTU.Migrations.InitialCreate.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
-            <inheritdoc />
-        </member>
-        <member name="M:AutoTTU.Migrations.InitialCreate.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
-            <inheritdoc />
-        </member>
         <member name="T:AutoTTU.ML.ControllersML.IAController">
             <summary>
             Controller responsável por gerenciar predições de IA para análise de risco

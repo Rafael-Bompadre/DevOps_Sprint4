@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("AutoTTU.Tests")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5ee31cee0d2fe23c961dad588117c53eff847cbd")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+69f3d00dd79490a30238c7069cc8f5c11c253ecf")]
 [assembly: System.Reflection.AssemblyProductAttribute("AutoTTU.Tests")]
 [assembly: System.Reflection.AssemblyTitleAttribute("AutoTTU.Tests")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
