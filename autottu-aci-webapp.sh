@@ -5,7 +5,6 @@
 ### Variáveis
 ###
 grupoRecursos=rg-azuredevops-docker
-rm=rm9999
 nomeACR="autottu"
 imageACR="autottu.azurecr.io/autottu:latest"
 serverACR="autottu.azurecr.io"
