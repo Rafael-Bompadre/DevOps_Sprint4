@@ -4,11 +4,11 @@ WORKDIR /src
 
 # Copiar arquivos do projeto e restaurar dependências (cache layer)
 COPY ["AutoTTU/AutoTTU.csproj", "AutoTTU/"]
-RUN dotnet restore "AutoTTU/AutoTTU.csproj"
-
-# Copiar todo o código fonte e fazer o build
-COPY . .
 WORKDIR "/src/AutoTTU"
+RUN dotnet restore "AutoTTU.csproj"
+
+# Copiar todo o código fonte da pasta AutoTTU
+COPY AutoTTU/ .
 RUN dotnet build "AutoTTU.csproj" -c Release -o /app/build --no-restore
 
 # Publicar a aplicação
