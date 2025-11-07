@@ -1,34 +1,36 @@
-# Use a imagem base do .NET 8.0 SDK para build
+# Etapa 1: Build
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 
-# Copiar arquivos do projeto e restaurar dependências (cache layer)
+# Copiar o arquivo de projeto e restaurar dependências
 COPY ["AutoTTU/AutoTTU.csproj", "AutoTTU/"]
-WORKDIR "/src/AutoTTU"
-RUN dotnet restore "AutoTTU.csproj"
+RUN dotnet restore "AutoTTU/AutoTTU.csproj"
 
-# Copiar todo o código fonte da pasta AutoTTU
-COPY AutoTTU/ .
-RUN dotnet build "AutoTTU.csproj" -c Release -o /app/build --no-restore
+# Copiar todo o código fonte
+COPY AutoTTU/. ./AutoTTU/
+
+# Definir o diretório de trabalho para o projeto
+WORKDIR /src/AutoTTU
+
+# Compilar o projeto
+RUN dotnet build "AutoTTU.csproj" -c Release -o /app/build
 
 # Publicar a aplicação
-FROM build AS publish
-RUN dotnet publish "AutoTTU.csproj" -c Release -o /app/publish /p:UseAppHost=false --no-restore
+RUN dotnet publish "AutoTTU.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
-# Imagem final para runtime
+# Etapa 2: Runtime
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS final
 WORKDIR /app
 
-# Copiar os arquivos publicados
-COPY --from=publish /app/publish .
+# Copiar a aplicação publicada
+COPY --from=build /app/publish .
 
-# Expor a porta 80 (padrão do Azure Web App)
+# Expor a porta padrão
 EXPOSE 80
 
-# Definir variável de ambiente para produção
+# Configuração de ambiente
 ENV ASPNETCORE_ENVIRONMENT=Production
 ENV ASPNETCORE_URLS=http://+:80
 
-# Comando para executar a aplicação
+# Comando para iniciar a aplicação
 ENTRYPOINT ["dotnet", "AutoTTU.dll"]
-
