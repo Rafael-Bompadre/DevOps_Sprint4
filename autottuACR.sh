@@ -6,7 +6,7 @@
 ###
 grupoRecursos=rg-azuredevops-docker
 regiao=brazilsouth
-nomeACR="autottu$"
+nomeACR="autottu"
 skuACR=Basic
 
 ###
