@@ -166,6 +166,27 @@ app.MapControllers();
 // Health Check endpoints
 app.MapHealthChecks("/health");
 
+// Aplicar migrations automaticamente em produção
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    var env = services.GetRequiredService<IWebHostEnvironment>();
+
+    if (!env.IsEnvironment("Testing"))
+    {
+        try
+        {
+            var db = services.GetRequiredService<AppDbContext>();
+            db.Database.Migrate();
+            Console.WriteLine("Migrations aplicadas com sucesso.");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Erro ao aplicar migrations: {ex.Message}");
+        }
+    }
+}
+
 app.Run();
 
 // Classe pública para permitir que WebApplicationFactory funcione com top-level statements
