@@ -5,16 +5,8 @@
 ### Variáveis
 ###
 grupoRecursos=rg-azuredevops-docker
-# Altere a Região conforme orientação do Prof
-regiao=eastus
-#Outras opções:
-#brazilsouth
-#eastus2
-#westus
-#westus2
-# Altere para seu RM
-rm=rm9999
-nomeACR="autottu$rm"
+regiao=brazilsouth
+nomeACR="autottu$"
 skuACR=Basic
 
 ###
