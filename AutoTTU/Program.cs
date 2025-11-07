@@ -140,19 +140,16 @@ var app = builder.Build();
 
 var provider = app.Services.GetRequiredService<IApiVersionDescriptionProvider>();
 
-if (app.Environment.IsDevelopment())
+app.UseSwagger();
+app.UseSwaggerUI(options =>
 {
-    app.UseSwagger();
-    app.UseSwaggerUI(options =>
+    foreach (var description in provider.ApiVersionDescriptions)
     {
-        // Cria uma aba do Swagger para cada versão
-        foreach (var description in provider.ApiVersionDescriptions)
-        {
-            options.SwaggerEndpoint($"/swagger/{description.GroupName}/swagger.json",
-                $"AutoTTU API {description.GroupName.ToUpper()}");
-        }
-    });
-}
+        options.SwaggerEndpoint($"/swagger/{description.GroupName}/swagger.json",
+            $"AutoTTU API {description.GroupName.ToUpper()}");
+    }
+    options.RoutePrefix = string.Empty;
+});
 
 
 
