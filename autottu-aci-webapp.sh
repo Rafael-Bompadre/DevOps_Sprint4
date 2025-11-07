@@ -6,23 +6,16 @@
 ###
 grupoRecursos=rg-azuredevops-docker
 # Altere para seu RM
-rm=rm9999
-nomeACR="autottu$rm"
-imageACR="autottu$rm.azurecr.io/autottu:latest"
-serverACR="autottu$rm.azurecr.io"
+nomeACR="autottu"
+imageACR="autottu.azurecr.io/autottu:latest"
+serverACR="autottu.azurecr.io"
 userACR=$(az acr credential show --name $nomeACR --query "username" -o tsv)
 passACR=$(az acr credential show --name $nomeACR --query "passwords[0].value" -o tsv)
-nomeACI="autottu$rm"
-# Altere a Região conforme orientação do Prof
-regiao=eastus
-#Outras opções:
-#brazilsouth
-#eastus2
-#westus
-#westus2
+nomeACI="autottu"
+regiao=brazilsouth
 planService=planAutoTTUWebApp
 sku=F1
-appName="autottuwebapp$rm"
+appName="autottuwebapp"
 port=80
 
 ###
