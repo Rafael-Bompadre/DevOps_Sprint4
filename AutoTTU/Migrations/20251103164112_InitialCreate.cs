@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
@@ -15,14 +15,14 @@ namespace AutoTTU.Migrations
                 name: "Checkin",
                 columns: table => new
                 {
-                    IdCheckin = table.Column<int>(type: "NUMBER(10)", nullable: false)
-                        .Annotation("Oracle:Identity", "START WITH 1 INCREMENT BY 1"),
-                    IdMoto = table.Column<int>(type: "NUMBER(10)", nullable: false),
-                    IdUsuario = table.Column<int>(type: "NUMBER(10)", nullable: false),
-                    AtivoChar = table.Column<string>(type: "NVARCHAR2(1)", maxLength: 1, nullable: false),
-                    Observacao = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false),
-                    TimeStamp = table.Column<DateTime>(type: "TIMESTAMP(7)", nullable: false),
-                    ImagensUrl = table.Column<string>(type: "NCLOB", maxLength: 2048, nullable: false)
+                    IdCheckin = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    IdMoto = table.Column<int>(type: "int", nullable: false),
+                    IdUsuario = table.Column<int>(type: "int", nullable: false),
+                    AtivoChar = table.Column<string>(type: "nvarchar(1)", maxLength: 1, nullable: false),
+                    Observacao = table.Column<string>(type: "nvarchar(2000)", nullable: false),
+                    TimeStamp = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ImagensUrl = table.Column<string>(type: "nvarchar(2048)", maxLength: 2048, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -33,14 +33,14 @@ namespace AutoTTU.Migrations
                 name: "Motos",
                 columns: table => new
                 {
-                    IdMoto = table.Column<int>(type: "NUMBER(10)", nullable: false)
-                        .Annotation("Oracle:Identity", "START WITH 1 INCREMENT BY 1"),
-                    Modelo = table.Column<string>(type: "NVARCHAR2(100)", maxLength: 100, nullable: false),
-                    Marca = table.Column<string>(type: "NVARCHAR2(100)", maxLength: 100, nullable: false),
-                    Ano = table.Column<int>(type: "NUMBER(10)", nullable: false),
-                    Placa = table.Column<string>(type: "NVARCHAR2(10)", maxLength: 10, nullable: false),
-                    AtivoChar = table.Column<string>(type: "NVARCHAR2(1)", maxLength: 1, nullable: false),
-                    FotoUrl = table.Column<string>(type: "NCLOB", maxLength: 2048, nullable: false)
+                    IdMoto = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Modelo = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Marca = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Ano = table.Column<int>(type: "int", nullable: false),
+                    Placa = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
+                    AtivoChar = table.Column<string>(type: "nvarchar(1)", maxLength: 1, nullable: false),
+                    FotoUrl = table.Column<string>(type: "nvarchar(2048)", maxLength: 2048, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -51,10 +51,10 @@ namespace AutoTTU.Migrations
                 name: "Slot",
                 columns: table => new
                 {
-                    IdSlot = table.Column<int>(type: "NUMBER(10)", nullable: false)
-                        .Annotation("Oracle:Identity", "START WITH 1 INCREMENT BY 1"),
-                    IdMoto = table.Column<int>(type: "NUMBER(10)", nullable: false),
-                    AtivoChar = table.Column<string>(type: "NVARCHAR2(1)", maxLength: 1, nullable: false)
+                    IdSlot = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    IdMoto = table.Column<int>(type: "int", nullable: false),
+                    AtivoChar = table.Column<string>(type: "nvarchar(1)", maxLength: 1, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -65,12 +65,12 @@ namespace AutoTTU.Migrations
                 name: "Usuario",
                 columns: table => new
                 {
-                    IdUsuario = table.Column<int>(type: "NUMBER(10)", nullable: false)
-                        .Annotation("Oracle:Identity", "START WITH 1 INCREMENT BY 1"),
-                    Nome = table.Column<string>(type: "NVARCHAR2(100)", maxLength: 100, nullable: false),
-                    Email = table.Column<string>(type: "NVARCHAR2(100)", maxLength: 100, nullable: false),
-                    Senha = table.Column<string>(type: "NVARCHAR2(100)", maxLength: 100, nullable: false),
-                    Telefone = table.Column<string>(type: "NVARCHAR2(20)", maxLength: 20, nullable: false)
+                    IdUsuario = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Nome = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Senha = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Telefone = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false)
                 },
                 constraints: table =>
                 {
