@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\asd\\AutoTTU.Tests\\AutoTTU.Tests.csproj": {}
+    "D:\\sp4\\AutoTTU.Tests\\AutoTTU.Tests.csproj": {}
   },
   "projects": {
-    "D:\\asd\\AutoTTU.Tests\\AutoTTU.Tests.csproj": {
+    "D:\\sp4\\AutoTTU.Tests\\AutoTTU.Tests.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\asd\\AutoTTU.Tests\\AutoTTU.Tests.csproj",
+        "projectUniqueName": "D:\\sp4\\AutoTTU.Tests\\AutoTTU.Tests.csproj",
         "projectName": "AutoTTU.Tests",
-        "projectPath": "D:\\asd\\AutoTTU.Tests\\AutoTTU.Tests.csproj",
+        "projectPath": "D:\\sp4\\AutoTTU.Tests\\AutoTTU.Tests.csproj",
         "packagesPath": "C:\\Users\\usuario\\.nuget\\packages\\",
-        "outputPath": "D:\\asd\\AutoTTU.Tests\\obj\\",
+        "outputPath": "D:\\sp4\\AutoTTU.Tests\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -32,8 +32,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "D:\\asd\\AutoTTU\\AutoTTU.csproj": {
-                "projectPath": "D:\\asd\\AutoTTU\\AutoTTU.csproj"
+              "D:\\sp4\\AutoTTU\\AutoTTU.csproj": {
+                "projectPath": "D:\\sp4\\AutoTTU\\AutoTTU.csproj"
               }
             }
           }
@@ -107,14 +107,14 @@
         }
       }
     },
-    "D:\\asd\\AutoTTU\\AutoTTU.csproj": {
+    "D:\\sp4\\AutoTTU\\AutoTTU.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\asd\\AutoTTU\\AutoTTU.csproj",
+        "projectUniqueName": "D:\\sp4\\AutoTTU\\AutoTTU.csproj",
         "projectName": "AutoTTU",
-        "projectPath": "D:\\asd\\AutoTTU\\AutoTTU.csproj",
+        "projectPath": "D:\\sp4\\AutoTTU\\AutoTTU.csproj",
         "packagesPath": "C:\\Users\\usuario\\.nuget\\packages\\",
-        "outputPath": "D:\\asd\\AutoTTU\\obj\\",
+        "outputPath": "D:\\sp4\\AutoTTU\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

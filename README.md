@@ -523,6 +523,12 @@ Este projeto é parte de um trabalho acadêmico/curso.
 
 ## 🧪 Integrantes do Projeto
 
+Maria Eduarda Brigidio - RM558575 
+
+André Luís Mesquita de Abreu- RM558159
+
+Rafael Bompadre Lima - RM556459
+
 ## 📞 Suporte
 
 Para questões e suporte, abra uma issue no repositório.

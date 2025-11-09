@@ -9116,11 +9116,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\asd\\AutoTTU\\AutoTTU.csproj",
+      "projectUniqueName": "D:\\sp4\\AutoTTU\\AutoTTU.csproj",
       "projectName": "AutoTTU",
-      "projectPath": "D:\\asd\\AutoTTU\\AutoTTU.csproj",
+      "projectPath": "D:\\sp4\\AutoTTU\\AutoTTU.csproj",
       "packagesPath": "C:\\Users\\usuario\\.nuget\\packages\\",
-      "outputPath": "D:\\asd\\AutoTTU\\obj\\",
+      "outputPath": "D:\\sp4\\AutoTTU\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
