@@ -1,65 +1,182 @@
-﻿# AutoTTU API
+# AutoTTU - Sistema de Gerenciamento de Motos
 
-API REST desenvolvida em .NET 8.0 para gerenciamento de sistema de estacionamento de motos, incluindo funcionalidades de check-in, gerenciamento de usuários, motos, slots e análise de risco utilizando Machine Learning.
+Sistema de gerenciamento de motos com API REST desenvolvido em ASP.NET Core 8.0, incluindo funcionalidades de check-in, gerenciamento de slots, usuários e análise de risco utilizando Machine Learning.
 
-## 💡 Solução
+## 📋 Índice
 
-Começaremos pela instalação de sensores e scanners em cada uma das vagas do pátio.
-Os sensores identificarão a presença de uma moto e, caso isso ocorra, o scanner fará a leitura do ID da moto por meio de um QR code pré-instalado, enviando os dados para o sistema. Dessa forma, saberemos exatamente qual >a localização de cada moto.
-Para evitar erros na identificação, realizaremos um check-in para cada moto na entrada do pátio. Nesse momento, os QR codes serão gerados (cde acordo com o id da moto), os danos serão verificados, o horário de entrada >será registrado e fotos serão tiradas. Em caso de ausência do ID por dano ou perda, um novo será gerado.
-Por meio desse sistema, os operadores do pátio poderão acessar as informações por uma interface intuitiva, na qual também realizarão o check-in.
-Para garantir o bom funcionamento do sistema, uma IA tirará fotos do pátio a cada hora e reportará possíveis erros, como a ausência de uma moto em uma vaga que deveria estar ocupada, falhas ou danos em sensores ou >scanners, entre outros.
-Atráves desse sistema, iremos garantir o bom funcionamento do pátio e a organização de forma automatizada, otimizando tempo e promovendo um ambiente mais eficiente e confiável
-
+- [Sobre o Projeto](#sobre-o-projeto)
+- [Tecnologias Utilizadas](#tecnologias-utilizadas)
+- [Funcionalidades](#funcionalidades)
+- [Estrutura do Projeto](#estrutura-do-projeto)
+- [Pré-requisitos](#pré-requisitos)
+- [Instalação e Configuração](#instalação-e-configuração)
+- [Como Executar](#como-executar)
+- [Testes](#testes)
+- [API Endpoints](#api-endpoints)
+- [Autenticação](#autenticação)
+- [Machine Learning](#machine-learning)
+- [Deploy no Azure](#deploy-no-azure)
+- [Contribuição](#contribuição)
 
 ## 🎯 Sobre o Projeto
 
-O AutoTTU é uma API REST completa para gerenciamento de estacionamento de motos, oferecendo:
-
-- **Gerenciamento de Usuários**: Cadastro, login e gerenciamento de usuários do sistema
-- **Gerenciamento de Motos**: CRUD completo para cadastro de motos
-- **Gerenciamento de Slots**: Controle de vagas de estacionamento
-- **Check-ins**: Registro de entrada e saída de motos com observações
-- **Análise de Risco com IA**: Predição de risco de danos das motos utilizando Machine Learning (Microsoft ML.NET)
-- **Versionamento de API**: Suporte a múltiplas versões da API
-- **Segurança**: Autenticação via API Key
-- **Health Checks**: Monitoramento de saúde da aplicação e banco de dados
+O AutoTTU é uma API REST completa para gerenciamento de motos, permitindo:
+- Cadastro e gerenciamento de usuários
+- Cadastro e controle de motos
+- Sistema de check-in com registro de danos
+- Gerenciamento de slots de estacionamento
+- Análise de risco utilizando Machine Learning (Microsoft ML.NET)
+- Health checks para monitoramento
+- Versionamento de API
+- Documentação automática com Swagger
 
 ## 🛠 Tecnologias Utilizadas
 
 - **.NET 8.0** - Framework principal
-- **Entity Framework Core 9.0.4** - ORM para acesso ao banco de dados
-- **Oracle.EntityFrameworkCore 9.23.80** - Provedor Oracle para EF Core
-- **Microsoft.ML 4.0.3** - Machine Learning para análise de risco
-- **Swashbuckle.AspNetCore 6.6.2** - Documentação Swagger/OpenAPI
-- **Microsoft.AspNetCore.Mvc.Versioning 5.1.0** - Versionamento de API
-- **Microsoft.AspNetCore.Diagnostics.HealthChecks 2.2.0** - Health checks
+- **ASP.NET Core Web API** - Framework para construção da API
+- **Entity Framework Core 9.0.4** - ORM para acesso a dados
+- **SQL Server** - Banco de dados relacional
+- **Microsoft ML.NET 4.0.3** - Machine Learning para análise de risco
+- **Swagger/OpenAPI** - Documentação da API
+- **Docker** - Containerização
+- **Azure** - Cloud computing (ACR, ACI, Web App, SQL Database)
+- **Azure Pipelines** - CI/CD
+- **xUnit** - Framework de testes
+- **FluentAssertions** - Asserções para testes
+- **Moq** - Mocking para testes unitários
+
+## ✨ Funcionalidades
+
+### Gerenciamento de Usuários
+- CRUD completo de usuários
+- Sistema de login
+- Validação de email único
+
+### Gerenciamento de Motos
+- CRUD completo de motos
+- Controle de status (ativo/inativo)
+- Armazenamento de fotos via URL
+- Validação de placa única
+
+### Sistema de Check-in
+- Registro de check-ins com timestamp
+- Upload de imagens
+- Registro de observações
+- Flag de violação/dano
+- Análise de risco automática via IA
+
+### Gerenciamento de Slots
+- Controle de vagas de estacionamento
+- Associação de motos aos slots
+- Status de ocupação
+
+### Machine Learning
+- Análise preditiva de risco de danos
+- Treinamento automático com dados históricos
+- Detecção de palavras-chave relacionadas a danos
+- Cálculo de probabilidade de risco
+
+### Segurança
+- Autenticação via API Key
+- Middleware de validação de chave
+- Rotas públicas (health check, swagger)
+
+### Monitoramento
+- Health checks para banco de dados
+- Endpoint `/health` para verificação de status
+
+## 📁 Estrutura do Projeto
+
+```
+DevOps_Sprint4/
+├── AutoTTU/                          # Projeto principal
+│   ├── Connection/                   # Contexto do Entity Framework
+│   │   └── AppDbContext.cs
+│   ├── Controllers/                  # Controllers da API
+│   │   ├── CheckinsController.cs
+│   │   ├── HealthController.cs
+│   │   ├── MotosController.cs
+│   │   ├── SlotsController.cs
+│   │   └── UsuariosController.cs
+│   ├── Dto/                          # Data Transfer Objects
+│   │   ├── CheckinInputDto.cs
+│   │   ├── LoginDto.cs
+│   │   ├── MotoInputDto.cs
+│   │   ├── SlotsInputDto.cs
+│   │   └── UsuarioInputDto.cs
+│   ├── Middleware/                   # Middlewares customizados
+│   │   └── ApiKeyMiddleware.cs
+│   ├── Migrations/                   # Migrations do Entity Framework
+│   ├── ML/                           # Machine Learning
+│   │   ├── CheckInData.cs
+│   │   ├── ControllersML/
+│   │   │   └── IAController.cs
+│   │   └── ServicesML/
+│   │       ├── IAService.cs
+│   │       └── IIAService.cs
+│   ├── Models/                       # Modelos de dados
+│   │   ├── Checkin.cs
+│   │   ├── Motos.cs
+│   │   ├── Slot.cs
+│   │   └── Usuario.cs
+│   ├── Repository/                   # Camada de repositório
+│   │   ├── CheckinRepository.cs
+│   │   ├── ICheckinRepository.cs
+│   │   ├── IMotosRepository.cs
+│   │   ├── ISlotRepository.cs
+│   │   ├── IUsuarioRepository.cs
+│   │   ├── MotosRepository.cs
+│   │   ├── SlotRepository.cs
+│   │   └── UsuarioRepository.cs
+│   ├── Service/                       # Camada de serviço
+│   │   ├── CheckinService.cs
+│   │   ├── ICheckinService.cs
+│   │   ├── IMotosService.cs
+│   │   ├── ISlotService.cs
+│   │   ├── IUsuarioService.cs
+│   │   ├── MotosService.cs
+│   │   ├── SlotService.cs
+│   │   └── UsuarioService.cs
+│   ├── appsettings.json              # Configurações
+│   ├── appsettings.Example.json      # Exemplo de configurações
+│   └── Program.cs                    # Ponto de entrada
+├── AutoTTU.Tests/                    # Projeto de testes
+│   ├── Integration/                  # Testes de integração
+│   │   ├── Controllers/
+│   │   └── CustomWebApplicationFactory.cs
+│   ├── Services/                     # Testes de serviço
+│   └── Helpers/
+├── Dockerfile                        # Configuração Docker
+├── azure-pipelines.yml              # Pipeline CI/CD
+├── autottuACR.sh                    # Script criação ACR
+└── autottu-aci-webapp.sh           # Script deploy Azure
+```
 
 ## 📦 Pré-requisitos
 
-Antes de começar, certifique-se de ter instalado:
-
 - [.NET 8.0 SDK](https://dotnet.microsoft.com/download/dotnet/8.0)
-- [Oracle Database](https://www.oracle.com/database/) ou acesso a um servidor Oracle
-- [Visual Studio 2022](https://visualstudio.microsoft.com/) 
+- [SQL Server](https://www.microsoft.com/sql-server) ou [Azure SQL Database](https://azure.microsoft.com/services/sql-database/)
+- [Docker](https://www.docker.com/) (opcional, para containerização)
+- [Azure CLI](https://docs.microsoft.com/cli/azure/install-azure-cli) (para deploy no Azure)
+- [Git](https://git-scm.com/)
 
 ## ⚙️ Instalação e Configuração
 
 ### 1. Clone o repositório
 
 ```bash
-git clone https://github.com/dudabrigidio/Autottu.git
-cd AutoTTU
+git clone <url-do-repositorio>
+cd DevOps_Sprint4
 ```
 
-### 2. Configure o arquivo `appsettings.json`
+### 2. Configure o banco de dados
 
-Copie o arquivo `appsettings.Example.json` para `appsettings.json` e configure suas credenciais:
+Edite o arquivo `AutoTTU/appsettings.json` com suas credenciais:
 
 ```json
 {
   "ConnectionStrings": {
-    "DefaultConnection": "User Id=SEU_USUARIO;Password=SUA_SENHA;Data Source=oracle.fiap.com.br:1521/orcl"
+    "DefaultConnection": "Server=SEU_SERVIDOR;Database=AutoTTUDB;User Id=SEU_USUARIO;Password=SUA_SENHA;TrustServerCertificate=True;"
   },
   "ApiSettings": {
     "ApiKey": "SUA_API_KEY_AQUI"
@@ -67,418 +184,349 @@ Copie o arquivo `appsettings.Example.json` para `appsettings.json` e configure s
 }
 ```
 
-### 3. Execute as migrations
+Ou copie o arquivo de exemplo:
 
 ```bash
-dotnet ef database update
+cp AutoTTU/appsettings.Example.json AutoTTU/appsettings.json
 ```
 
-### 4. Restaure as dependências
+### 3. Restaure as dependências
 
 ```bash
 dotnet restore
 ```
 
-## 📁 Estrutura do Projeto
+### 4. Execute as migrations
 
-```
-AutoTTU/
-├── Controllers/          # Controllers da API
-│   ├── UsuariosController.cs
-│   ├── MotosController.cs
-│   ├── SlotsController.cs
-│   ├── CheckinsController.cs
-│   ├── IAController.cs
-│   └── HealthController.cs
-├── Models/              # Modelos de dados
-│   ├── Usuario.cs
-│   ├── Motos.cs
-│   ├── Slot.cs
-│   └── Checkin.cs
-├── Dto/                 # Data Transfer Objects
-│   ├── UsuarioInputDto.cs
-│   ├── MotoInputDto.cs
-│   ├── SlotsInputDto.cs
-│   ├── CheckinInputDto.cs
-│   └── LoginDto.cs
-├── Repository/          # Camada de repositório
-│   ├── IUsuarioRepository.cs
-│   ├── UsuarioRepository.cs
-│   ├── IMotosRepository.cs
-│   ├── MotosRepository.cs
-│   ├── ISlotRepository.cs
-│   ├── SlotRepository.cs
-│   ├── ICheckinRepository.cs
-│   └── CheckinRepository.cs
-├── Service/             # Camada de serviços
-│   ├── IUsuarioService.cs
-│   ├── UsuarioService.cs
-│   ├── IMotosService.cs
-│   ├── MotosService.cs
-│   ├── ISlotService.cs
-│   ├── SlotService.cs
-│   ├── ICheckinService.cs
-│   └── CheckinService.cs
-├── ML/                  # Machine Learning
-│   ├── ControllersML/
-│   │   └── IAController.cs
-│   ├── ServicesML/
-│   │   ├── IIAService.cs
-│   │   └── IAService.cs
-│   └── CheckInData.cs
-├── Connection/          # Contexto do banco de dados
-│   └── AppDbContext.cs
-├── Middleware/          # Middlewares customizados
-│   └── ApiKeyMiddleware.cs
-├── Migrations/          # Migrations do Entity Framework
-└── Program.cs           # Configuração principal da aplicação
+```bash
+cd AutoTTU
+dotnet ef database update
 ```
 
-## 🔌 Endpoints da API
+## 🚀 Como Executar
 
-### Usuários (`/api/v1/Usuarios`)
+### Executar localmente
 
-- `GET /api/v1/Usuarios` - Lista todos os usuários
-- `GET /api/v1/Usuarios/{id}` - Busca usuário por ID
-- `POST /api/v1/Usuarios` - Cadastra novo usuário
-- `PUT /api/v1/Usuarios/{id}` - Atualiza usuário
-- `DELETE /api/v1/Usuarios/{id}` - Remove usuário
-- `POST /api/v1/Usuarios/Login` - Realiza login do usuário
+```bash
+cd AutoTTU
+dotnet run
+```
 
-### Motos (`/api/v1/Motos`)
+A API estará disponível em:
+- HTTP: `http://localhost:5000`
+- HTTPS: `https://localhost:5001`
+- Swagger: `http://localhost:5000` ou `https://localhost:5001`
 
-- `GET /api/v1/Motos` - Lista todas as motos
-- `GET /api/v1/Motos/{id}` - Busca moto por ID
-- `POST /api/v1/Motos` - Cadastra nova moto
-- `PUT /api/v1/Motos/{id}` - Atualiza moto
-- `DELETE /api/v1/Motos/{id}` - Remove moto
+### Executar com Docker
 
-### Slots (`/api/v1/Slot`)
+#### Build da imagem
 
-- `GET /api/v1/Slot` - Lista todos os slots
-- `GET /api/v1/Slot/{id}` - Busca slot por ID
-- `POST /api/v1/Slot` - Cadastra novo slot
-- `PUT /api/v1/Slot/{id}` - Atualiza slot
-- `DELETE /api/v1/Slot/{id}` - Remove slot
+```bash
+docker build -t autottu:latest .
+```
 
-### Check-ins (`/api/v1/Checkins`)
+#### Executar container
 
-- `GET /api/v1/Checkins` - Lista todos os check-ins
-- `GET /api/v1/Checkins/{id}` - Busca check-in por ID
-- `POST /api/v1/Checkins` - Cria novo check-in
-- `PUT /api/v1/Checkins/{id}` - Atualiza check-in
-- `DELETE /api/v1/Checkins/{id}` - Remove check-in
+```bash
+docker run -p 8080:80 \
+  -e ConnectionStrings__DefaultConnection="Sua_Connection_String" \
+  -e ApiSettings__ApiKey="Sua_API_Key" \
+  autottu:latest
+```
 
-### IA (`/api/v1/IA`)
+## 🧪 Testes
 
-- `POST /api/v1/IA/prever-risco` - Prevê risco de dano para uma observação específica
-- `POST /api/v1/IA/prever-danos` - Prevê risco de dano para todos os check-ins e calcula estatísticas
+### Executar todos os testes
 
-### Health Check (`/health`)
+```bash
+dotnet test
+```
 
-- `GET /health` - Verifica saúde da aplicação e banco de dados
+### Executar testes com cobertura
+
+```bash
+dotnet test /p:CollectCoverage=true
+```
+
+### Tipos de Testes
+
+- **Testes Unitários**: Testam serviços isoladamente
+- **Testes de Integração**: Testam controllers com banco de dados em memória
+
+## 📡 API Endpoints
+
+### Versionamento
+
+A API utiliza versionamento via URL, query string ou header:
+- URL: `/api/v1/usuarios`
+- Query: `/api/usuarios?api-version=1.0`
+- Header: `x-api-version: 1.0`
+
+### Endpoints Principais
+
+#### Usuários (`/api/v1/usuarios`)
+
+| Método | Endpoint | Descrição |
+|--------|----------|-----------|
+| GET | `/api/v1/usuarios` | Lista todos os usuários |
+| GET | `/api/v1/usuarios/{id}` | Busca usuário por ID |
+| POST | `/api/v1/usuarios` | Cria novo usuário |
+| PUT | `/api/v1/usuarios/{id}` | Atualiza usuário |
+| DELETE | `/api/v1/usuarios/{id}` | Remove usuário |
+| POST | `/api/v1/usuarios/Login` | Realiza login |
+
+#### Motos (`/api/v1/motos`)
+
+| Método | Endpoint | Descrição |
+|--------|----------|-----------|
+| GET | `/api/v1/motos` | Lista todas as motos |
+| GET | `/api/v1/motos/{id}` | Busca moto por ID |
+| POST | `/api/v1/motos` | Cria nova moto |
+| PUT | `/api/v1/motos/{id}` | Atualiza moto |
+| DELETE | `/api/v1/motos/{id}` | Remove moto |
+
+#### Check-ins (`/api/v1/checkins`)
+
+| Método | Endpoint | Descrição |
+|--------|----------|-----------|
+| GET | `/api/v1/checkins` | Lista todos os check-ins |
+| GET | `/api/v1/checkins/{id}` | Busca check-in por ID |
+| POST | `/api/v1/checkins` | Cria novo check-in |
+| PUT | `/api/v1/checkins/{id}` | Atualiza check-in |
+| DELETE | `/api/v1/checkins/{id}` | Remove check-in |
+
+#### Slots (`/api/v1/slot`)
+
+| Método | Endpoint | Descrição |
+|--------|----------|-----------|
+| GET | `/api/v1/slot` | Lista todos os slots |
+| GET | `/api/v1/slot/{id}` | Busca slot por ID |
+| POST | `/api/v1/slot` | Cria novo slot |
+| PUT | `/api/v1/slot/{id}` | Atualiza slot |
+| DELETE | `/api/v1/slot/{id}` | Remove slot |
+
+#### IA (`/api/v1/ia`)
+
+| Método | Endpoint | Descrição |
+|--------|----------|-----------|
+| POST | `/api/v1/ia/prever-risco` | Prevê risco de uma observação |
+| POST | `/api/v1/ia/prever-danos` | Analisa todos os check-ins e calcula estatísticas |
+
+#### Health Check
+
+| Método | Endpoint | Descrição |
+|--------|----------|-----------|
+| GET | `/health` | Verifica saúde da aplicação e banco de dados |
 
 ## 🔐 Autenticação
 
-A API utiliza autenticação via **API Key**. Todas as requisições (exceto rotas públicas) devem incluir o header:
+A API utiliza autenticação via API Key. Todas as requisições (exceto rotas públicas) devem incluir o header:
 
 ```
 X-API-Key: SUA_API_KEY_AQUI
 ```
 
-A API Key deve ser configurada no arquivo `appsettings.json`:
+### Rotas Públicas (não requerem API Key)
+- `/health`
+- `/swagger`
+- `/swagger/index.html`
+- `/swagger/v1/swagger.json`
 
-```json
-{
-  "ApiSettings": {
-    "ApiKey": "MinhaChaveSecreta123"
-  }
-}
+### Exemplo de Requisição
+
+```bash
+curl -X GET "https://api.exemplo.com/api/v1/usuarios" \
+  -H "X-API-Key: SUA_API_KEY_AQUI" \
+  -H "Content-Type: application/json"
 ```
 
 ## 🤖 Machine Learning
 
-O projeto inclui funcionalidades de Machine Learning para análise de risco de danos em motos. O modelo ML.NET analisa as observações dos check-ins e prevê a probabilidade de risco alto.
+O sistema utiliza Microsoft ML.NET para análise preditiva de risco de danos em motos.
 
-### Endpoints de IA
+### Funcionalidades
 
-**Prever Risco Individual:**
-```http
-POST /api/v1/IA/prever-risco
+1. **Análise de Observações**: Analisa o texto das observações dos check-ins para identificar risco de danos
+2. **Treinamento Automático**: O modelo é treinado automaticamente com dados históricos de check-ins
+3. **Detecção de Palavras-chave**: Identifica termos relacionados a danos (arranhado, quebrado, amassado, etc.)
+4. **Probabilidade de Risco**: Retorna uma probabilidade de 0 a 1 indicando o risco de dano
+
+### Endpoint de Predição
+
+```bash
+POST /api/v1/ia/prever-risco
 Content-Type: application/json
 
-"Observação da moto: danificada, arranhões no tanque"
+"Tanque arranhado e retrovisor quebrado"
 ```
 
-**Prever Danos para Todos os Check-ins:**
-```http
-POST /api/v1/IA/prever-danos
-```
-
-
-## 🏥 Health Checks
-
-O endpoint `/health` verifica:
-
-- **Status da aplicação**
-- **Conexão com o banco de dados Oracle**
-
-Exemplo de resposta:
-
+**Resposta:**
 ```json
 {
-  "status": "Healthy",
-  "checks": {
-    "database": "Healthy"
-  }
-}
-```
-
-## 🚀 Executando o Projeto
-
-### Modo Desenvolvimento
-
-```bash
-dotnet run
-```
-
-
-## 🧪 Testes
-
-O projeto inclui uma suíte completa de testes unitários e de integração para garantir a qualidade e confiabilidade do código.
-
-### Estrutura dos Testes
-
-O projeto de testes (`AutoTTU.Tests`) está organizado da seguinte forma:
-
-```
-AutoTTU.Tests/
-├── Services/                    # Testes unitários dos serviços
-│   ├── UsuarioServiceTests.cs
-│   ├── MotosServiceTests.cs
-│   ├── SlotServiceTests.cs
-│   └── CheckinServiceTests.cs
-├── Integration/                 # Testes de integração
-│   ├── Controllers/
-│   │   ├── UsuariosControllerIntegrationTests.cs
-│   │   ├── MotosControllerIntegrationTests.cs
-│   │   ├── SlotsControllerIntegrationTests.cs
-│   │   └── CheckinsControllerIntegrationTests.cs
-│   ├── CustomWebApplicationFactory.cs
-│   └── IntegrationTestBase.cs
-└── Helpers/
-    └── TestDataBuilder.cs      # Helper para criação de dados de teste
-```
-
-### Tecnologias de Teste
-
-- **xUnit** - Framework de testes
-- **Moq** - Framework de mocking para testes unitários
-- **FluentAssertions** - Biblioteca para asserções mais legíveis
-- **Microsoft.AspNetCore.Mvc.Testing** - Testes de integração para APIs ASP.NET Core
-- **Microsoft.EntityFrameworkCore.InMemory** - Banco de dados em memória para testes
-- **Coverlet** - Cobertura de código
-
-### Executando os Testes
-
-#### Executar todos os testes
-
-```bash
-cd AutoTTU.Tests
-dotnet test
-```
-
-#### Executar testes com cobertura de código
-
-```bash
-dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
-```
-
-#### Executar apenas testes unitários
-
-```bash
-dotnet test --filter "FullyQualifiedName~Services"
-```
-
-#### Executar apenas testes de integração
-
-```bash
-dotnet test --filter "FullyQualifiedName~Integration"
-```
-
-#### Executar testes com saída detalhada
-
-```bash
-dotnet test --logger "console;verbosity=detailed"
-```
-
-#### Executar um teste específico
-
-```bash
-dotnet test --filter "FullyQualifiedName~NomeDoTeste"
-```
-
-### Tipos de Testes
-
-#### Testes Unitários
-
-Os testes unitários estão localizados na pasta `Services/` e testam a lógica de negócio dos serviços isoladamente, utilizando mocks para dependências:
-
-- **UsuarioServiceTests**: Testa operações CRUD e lógica de autenticação de usuários
-- **MotosServiceTests**: Testa operações CRUD de motos
-- **SlotServiceTests**: Testa operações CRUD de slots
-- **CheckinServiceTests**: Testa operações CRUD e lógica de check-ins
-
-#### Testes de Integração
-
-Os testes de integração estão localizados na pasta `Integration/Controllers/` e testam os endpoints da API de forma completa, incluindo:
-
-- Validação de requisições HTTP
-- Autenticação via API Key
-- Persistência no banco de dados (usando banco em memória)
-- Respostas HTTP corretas
-
-Os testes de integração utilizam:
-- **CustomWebApplicationFactory**: Factory customizada para configurar a aplicação de teste
-- **IntegrationTestBase**: Classe base que fornece HttpClient configurado e limpeza do banco de dados
-
-### Configuração dos Testes
-
-Os testes de integração utilizam um banco de dados em memória (InMemory) para garantir isolamento e velocidade. A API Key de teste é configurada automaticamente como `TestApiKey123` nos testes de integração.
-
-### Exemplo de Execução
-
-```bash
-# Navegar para o diretório de testes
-cd AutoTTU.Tests
-
-# Executar todos os testes
-dotnet test
-
-# Saída esperada:
-# Test Run Successful.
-# Total tests: XX
-#      Passed: XX
-# Total time: X.XXXX seconds
-```
-
-### Cobertura de Código
-
-Para visualizar a cobertura de código após executar os testes com a flag de cobertura, você pode usar ferramentas como:
-
-- **ReportGenerator** para gerar relatórios HTML
-- **Coverlet.ReportGenerator** para relatórios em diferentes formatos
-
-Exemplo de instalação e uso do ReportGenerator:
-
-```bash
-dotnet tool install -g dotnet-reportgenerator-globaltool
-dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
-reportgenerator -reports:"**/coverage.opencover.xml" -targetdir:"coverage-report" -reporttypes:Html
-```
-
-## 📚 Documentação Swagger
-
-Quando executado em modo de desenvolvimento, a documentação Swagger estará disponível em:
-
-```
-https://localhost:5001/swagger
-```
-
-O Swagger permite:
-- Visualizar todos os endpoints disponíveis
-- Testar requisições diretamente na interface
-- Ver exemplos de requisições e respostas
-- Configurar a API Key para autenticação
-
-## 💡 Exemplos de Uso
-
-### Criar um Usuário
-
-```http
-POST /api/v1/Usuarios
-X-API-Key: MinhaChaveSecreta123
-Content-Type: application/json
-
-{
-  "nome": "João Silva",
-  "email": "joao@example.com",
-  "senha": "senha123",
-  "telefone": "11999999999"
-}
-```
-
-### Cadastrar uma Moto
-
-```http
-POST /api/v1/Motos
-X-API-Key: MinhaChaveSecreta123
-Content-Type: application/json
-
-{
-  "modelo": "H2",
-  "marca": "Honda",
-  "ano": 2020,
-  "placa": "ABC1234",
-  "ativoChar": "s",
-  "fotoUrl": "https://example.com/foto.jpg"
-}
-```
-
-### Realizar Check-in
-
-```http
-POST /api/v1/Checkins
-X-API-Key: MinhaChaveSecreta123
-Content-Type: application/json
-
-{
-  "idMoto": 1,
-  "idUsuario": 1,
-  "ativoChar": "n",
-  "observacao": "Moto em perfeito estado",
-  "timeStamp": "2025-01-15T10:30:00",
-  "imagensUrl": "https://example.com/imagem.jpg"
-}
-```
-
-### Prever Risco de Dano
-
-```http
-POST /api/v1/IA/prever-risco
-X-API-Key: MinhaChaveSecreta123
-Content-Type: application/json
-
-"Moto com arranhões no tanque e retrovisor quebrado"
-```
-
-Resposta:
-```json
-{
-  "observacao": "Moto com arranhões no tanque e retrovisor quebrado",
+  "observacao": "Tanque arranhado e retrovisor quebrado",
   "riscoAlto": true,
   "probabilidade": 0.85
 }
 ```
 
-## 🔄 Versionamento da API
+### Endpoint de Análise Completa
 
-A API suporta versionamento através de:
+```bash
+POST /api/v1/ia/prever-danos
+```
 
-- **Query String**: `?api-version=1.0`
-- **Header**: `x-api-version: 1.0`
-- **URL**: `/api/v1/Usuarios`
+**Resposta:**
+```json
+{
+  "totalCheckins": 10,
+  "mediaProbabilidade": 0.65,
+  "quantidadeRiscoAlto": 3,
+  "percentualRiscoAlto": 30.0,
+  "detalhes": [...]
+}
+```
 
-A versão padrão é **1.0**.
+## ☁️ Deploy no Azure
 
-## 🌐 CORS
+### Pré-requisitos
 
-A API está configurada para aceitar requisições de qualquer origem em desenvolvimento. Para produção, ajuste as políticas CORS no `Program.cs`.
+- Conta Azure ativa
+- Azure CLI instalado e configurado
+- Permissões para criar recursos no Azure
 
-## 📝 Licença
+### 1. Criar Azure Container Registry (ACR)
 
-Este projeto é parte de um trabalho acadêmico.
+```bash
+bash autottuACR.sh
+```
 
+Este script cria:
+- Grupo de recursos `rg-azuredevops-docker`
+- Azure Container Registry `autottu`
+- Habilita usuário administrador
 
+### 2. Build e Push da Imagem
+
+O pipeline do Azure DevOps (`azure-pipelines.yml`) faz automaticamente:
+- Build da imagem Docker
+- Push para o ACR
+- Tag com `latest` e `Build.BuildId`
+
+### 3. Criar Infraestrutura no Azure
+
+```bash
+bash autottu-aci-webapp.sh
+```
+
+Este script cria:
+- SQL Server e Database Azure
+- Configuração de firewall
+- Azure Container Instance (ACI)
+- Azure Web App
+- Configuração de connection string
+
+### 4. Configurar Variáveis de Ambiente no Web App
+
+```bash
+az webapp config appsettings set \
+  --resource-group rg-azuredevops-docker \
+  --name autottuwebapp \
+  --settings ApiSettings__ApiKey="SUA_API_KEY"
+```
+
+### 5. Acessar a Aplicação
+
+- **Web App**: `https://autottuwebapp.azurewebsites.net`
+- **ACI**: `http://autottu.brazilsouth.azurecontainer.io`
+
+## 🔄 CI/CD
+
+O projeto utiliza Azure Pipelines para CI/CD automático:
+
+1. **Trigger**: Push na branch `main`
+2. **Build**: Compila a aplicação .NET
+3. **Docker**: Cria imagem Docker
+4. **Push**: Envia imagem para ACR
+5. **Deploy**: (Configurar manualmente ou adicionar etapa)
+
+Arquivo: `azure-pipelines.yml`
+
+## 📝 Modelos de Dados
+
+### Usuario
+- `IdUsuario` (int, PK)
+- `Nome` (string, required)
+- `Email` (string, required, unique)
+- `Senha` (string, required)
+- `Telefone` (string, required)
+
+### Motos
+- `IdMoto` (int, PK)
+- `Modelo` (string, required)
+- `Marca` (string, required)
+- `Ano` (int, required)
+- `Placa` (string, unique)
+- `AtivoChar` (string: "S" ou "N")
+- `FotoUrl` (string)
+
+### Slot
+- `IdSlot` (int, PK)
+- `IdMoto` (int, FK)
+- `AtivoChar` (string: "S" ou "N")
+
+### Checkin
+- `IdCheckin` (int, PK)
+- `IdMoto` (int, FK)
+- `IdUsuario` (int, FK)
+- `AtivoChar` (string: "S" ou "N") - indica se foi violada
+- `Observacao` (string, required)
+- `TimeStamp` (DateTime, required)
+- `ImagensUrl` (string)
+
+## 🏗 Arquitetura
+
+O projeto segue os princípios de **Clean Architecture** e **Repository Pattern**:
+
+- **Controllers**: Recebem requisições HTTP
+- **Services**: Lógica de negócio
+- **Repositories**: Acesso a dados
+- **Models**: Entidades do domínio
+- **DTOs**: Objetos de transferência de dados
+- **Middleware**: Processamento de requisições (API Key)
+
+## 🔍 Health Checks
+
+O sistema inclui health checks para monitoramento:
+
+- **Endpoint**: `/health`
+- **Verifica**: Conexão com banco de dados
+- **Status**: Healthy, Degraded, Unhealthy
+
+## 📚 Documentação
+
+A documentação da API está disponível via Swagger:
+
+- **URL**: `http://localhost:5000` (ou URL do servidor)
+- **Inclui**: Descrição de todos os endpoints, modelos de dados, exemplos de requisição/resposta
+
+## 🤝 Contribuição
+
+1. Faça um fork do projeto
+2. Crie uma branch para sua feature (`git checkout -b feature/AmazingFeature`)
+3. Commit suas mudanças (`git commit -m 'Add some AmazingFeature'`)
+4. Push para a branch (`git push origin feature/AmazingFeature`)
+5. Abra um Pull Request
+
+## 📄 Licença
+
+Este projeto é parte de um trabalho acadêmico/curso.
+
+## 🧪 Integrantes do Projeto
+
+## 📞 Suporte
+
+Para questões e suporte, abra uma issue no repositório.
+
+---
 
 
